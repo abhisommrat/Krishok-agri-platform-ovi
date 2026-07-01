@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+  <title>যন্ত্রপাতি - কৃষি সহায়তা</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- ===== হোমপেজের স্টাইল (একই) ===== -->
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --primary: #1a5e2a;
+      --primary-dark: #0f3d1a;
+      --primary-light: #2e8b57;
+      --secondary: #f5b042;
+      --bg: #f4f9f4;
+      --white: #ffffff;
+      --text-dark: #1a2a1f;
+      --text-light: #4a5a4f;
+      --shadow: 0 8px 30px rgba(0,40,20,0.08);
+      --shadow-hover: 0 16px 48px rgba(0,60,30,0.12);
+      --radius: 20px;
+      --radius-btn: 60px;
+      --transition: all 0.3s ease;
+      --max-width: 1200px;
+      --font: 'Inter', 'Noto Sans Bengali', system-ui, sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.7;
+      min-height: 100vh;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 clamp(16px, 4vw, 40px);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
+      color: var(--white);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 800;
+      color: var(--white);
+    }
+    .logo .logo-icon {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--secondary);
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .logo span { color: var(--secondary); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+
+    /* ===== DARK TOGGLE ===== */
+    .dark-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(4px);
+    }
+    .dark-toggle:hover {
+      background: rgba(255,255,255,0.15);
+      transform: scale(1.04);
+      border-color: var(--secondary);
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      background: var(--white);
+      padding: 10px 0;
+      border-bottom: 3px solid var(--secondary);
+      position: sticky;
+      top: 72px;
+      z-index: 999;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    .nav-inner {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      min-width: max-content;
+    }
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 1.2vw, 1rem);
+      color: var(--text-light);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    nav a i { font-size: 1rem; }
+    nav a:hover { background: var(--bg); color: var(--primary); }
+    nav a.active {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(26,94,42,0.25);
+    }
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 40px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 4px solid var(--secondary);
+    }
+    .section-title i { color: var(--secondary); font-size: 1.6rem; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: var(--radius-btn);
+      font-weight: 700;
+      font-size: clamp(0.9rem, 1.2vw, 1rem);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--primary); color: var(--white); box-shadow: 0 4px 16px rgba(26,94,42,0.3); }
+    .btn-primary:hover { background: var(--primary-dark); transform: scale(1.04); }
+    .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary-dark);
+      color: #ccddcc;
+      padding: 40px 0 20px;
+      margin-top: 40px;
+      border-top: 5px solid var(--secondary);
+    }
+    .footer-grid {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    footer h4 { color: var(--secondary); margin-bottom: 12px; font-size: 1.1rem; }
+    footer ul { list-style: none; }
+    footer ul li { padding: 4px 0; }
+    footer ul a { color: #b3d9b3; transition: var(--transition); }
+    footer ul a:hover { color: var(--secondary); }
+    footer .social {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    footer .social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      color: #b3d9b3;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    footer .social a:hover {
+      background: var(--secondary);
+      color: var(--primary-dark);
+      transform: scale(1.08);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 18px;
+      margin-top: 25px;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--primary-dark);
+      color: var(--white);
+      padding: 14px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 9999;
+      opacity: 0;
+      transition: all 0.5s ease;
+      pointer-events: none;
+      max-width: 90%;
+      text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success { background: var(--primary); }
+    .toast.error { background: #dc3545; }
+
+    /* ===== DARK MODE ===== */
+    body.dark {
+      --bg: #0d1f13;
+      --white: #1e3324;
+      --text-dark: #e0eee0;
+      --text-light: #b3d9b3;
+      --shadow: 0 8px 30px rgba(0,0,0,0.4);
+      --shadow-hover: 0 16px 48px rgba(0,0,0,0.5);
+    }
+    body.dark .card,
+    body.dark .quick-card,
+    body.dark .feature-card { background: var(--white); }
+    body.dark nav { background: var(--white); }
+    body.dark nav a { color: var(--text-light); }
+    body.dark nav a.active { background: var(--primary); color: var(--white); }
+    body.dark .dark-toggle { border-color: rgba(255,255,255,0.15); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; align-items: stretch; text-align: center; }
+      .header-actions { justify-content: center; }
+      nav { top: 120px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .dark-toggle { padding: 6px 12px; font-size: 0.8rem; }
+    }
+
+    /* ===== যন্ত্রপাতি পেজের অতিরিক্ত স্টাইল ===== */
+    .search-box-wrapper {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .search-box-wrapper input {
+      flex: 1;
+      min-width: 200px;
+      padding: 14px 22px;
+      border: 2px solid #d8e8d8;
+      border-radius: 50px;
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+      background: var(--white);
+      color: var(--text-dark);
+    }
+    .search-box-wrapper input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 4px rgba(46, 125, 94, 0.15);
+    }
+    .search-box-wrapper select {
+      padding: 14px 22px;
+      border: 2px solid #d8e8d8;
+      border-radius: 50px;
+      font-size: 1rem;
+      outline: none;
+      background: var(--white);
+      cursor: pointer;
+      min-width: 160px;
+      color: var(--text-dark);
+    }
+
+    .equip-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 600px) { .equip-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 992px) { .equip-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .equip-card .equip-icon { font-size: 3rem; text-align: center; padding: 10px 0 6px; }
+    .equip-card .equip-name { font-size: 1.2rem; color: var(--primary); text-align: center; margin-bottom: 4px; }
+    .equip-card .equip-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 6px 0 10px; }
+    .equip-card .equip-tags .tag { background: #e8f5e9; padding: 2px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: var(--primary); }
+    .equip-card .equip-info { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 0.9rem; margin: 8px 0; }
+    .equip-card .equip-info .label { color: var(--gray); font-weight: 500; }
+    .equip-card .equip-info .value { font-weight: 600; color: var(--text-dark); }
+    .equip-card .equip-description { font-size: 0.9rem; color: var(--text-light); margin: 6px 0 10px; line-height: 1.5; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-badge.available { background: #d4edda; color: #155724; }
+    .status-badge.unavailable { background: #f8d7da; color: #721c24; }
+    .status-badge.rented { background: #fff3cd; color: #856404; }
+
+    .no-result {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray);
+      display: none;
+    }
+    .no-result i { font-size: 3.5rem; color: #ccc; display: block; margin-bottom: 12px; }
+    .no-result h3 { font-size: 1.3rem; color: var(--text-light); margin-bottom: 4px; }
+
+    body.dark .equip-card .equip-tags .tag { background: #2a4a2f; color: #b3d9b3; }
+    body.dark .search-box-wrapper input,
+    body.dark .search-box-wrapper select { background: var(--white); border-color: var(--dark-border); color: var(--text-dark); }
+    body.dark .no-result i { color: #2a4a2f; }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🌾</span>
+        <h1>কৃষি<span>সহায়তা</span></h1>
+      </a>
+      <div class="header-actions">
+        <button class="dark-toggle" id="darkToggle">
+          <i class="fas fa-moon"></i> <span>ডার্ক</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html"><i class="fas fa-home"></i> হোম</a>
+      <a href="crops.html"><i class="fas fa-seedling"></i> ফসল</a>
+      <a href="bazardor.html"><i class="fas fa-tags"></i> বাজারদর</a>
+      <a href="equipment.html" class="active"><i class="fas fa-tractor"></i> যন্ত্রপাতি</a>
+      <a href="rental.html"><i class="fas fa-hand-holding-usd"></i> ভাড়া</a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
+      <a href="contact.html"><i class="fas fa-phone-alt"></i> যোগাযোগ</a>
+      <a href="chat.html"><i class="fas fa-comments"></i> চ্যাট</a>
+      <a href="admin.html"><i class="fas fa-user-shield"></i> অ্যাডমিন</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main>
+  <div class="container">
+
+    <h2 class="section-title"><i class="fas fa-tractor"></i> কৃষি যন্ত্রপাতি</h2>
+    <p style="color:var(--text-light); margin-bottom:20px;">
+      বিভিন্ন ধরনের কৃষি যন্ত্রপাতি, তাদের ব্যবহার, ভাড়ার খরচ ও প্রাপ্যতা সম্পর্কে জানুন।
+    </p>
+
+    <!-- ===== সার্চ ও ফিল্টার ===== -->
+    <div class="search-box-wrapper">
+      <input type="text" id="searchInput" placeholder="🔍 যন্ত্রপাতি খুঁজুন..." />
+      <select id="categoryFilter">
+        <option value="all">সব ক্যাটাগরি</option>
+        <option value="ভারী যন্ত্রপাতি">ভারী যন্ত্রপাতি</option>
+        <option value="সেচ যন্ত্রপাতি">সেচ যন্ত্রপাতি</option>
+        <option value="চাষ যন্ত্রপাতি">চাষ যন্ত্রপাতি</option>
+        <option value="পরিবহন যন্ত্রপাতি">পরিবহন যন্ত্রপাতি</option>
+        <option value="সুরক্ষা যন্ত্রপাতি">সুরক্ষা যন্ত্রপাতি</option>
+      </select>
+    </div>
+
+    <!-- ===== যন্ত্রপাতি গ্রিড ===== -->
+    <div class="equip-grid" id="equipGrid"></div>
+
+    <!-- ===== নো রেজাল্ট ===== -->
+    <div class="no-result" id="noResult">
+      <i class="fas fa-search"></i>
+      <h3>🔍 "<span id="searchTerm"></span>" খুঁজে পাওয়া যায়নি</h3>
+    </div>
+
+    <div style="margin-top:30px;">
+      <a href="index.html" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> হোমপেজে ফিরে যান
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>🌾 কৃষি সহায়তা</h4>
+        <p style="color:#b3d9b3; font-size:0.95rem;">কৃষকের বন্ধু, উন্নতির ঠিকানা।</p>
+        <div class="social">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>দ্রুত লিংক</h4>
+        <ul>
+          <li><a href="crops.html">ফসলের তথ্য</a></li>
+          <li><a href="equipment.html">যন্ত্রপাতি</a></li>
+          <li><a href="rental.html">ভাড়া ক্যালকুলেটর</a></li>
+          <li><a href="bazardor.html">বাজারদর</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>সহায়তা</h4>
+        <ul>
+          <li><a href="contact.html">যোগাযোগ</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">প্রাইভেসি পলিসি</a></li>
+          <li><a href="#">টার্মস অ্যান্ড কন্ডিশন</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>যোগাযোগ</h4>
+        <ul>
+          <li><i class="fas fa-phone"></i> ১৬৩৩৩</li>
+          <li><i class="fas fa-envelope"></i> info@krishisahayata.com</li>
+          <li><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম | সব অধিকার সংরক্ষিত</p>
+      <p style="opacity:0.6; font-size:0.85rem; margin-top:4px;">
+        <i class="fas fa-code"></i> প্রযুক্তি সহায়তায় কৃষির উন্নয়ন
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  // ===== DARK MODE =====
+  const toggleBtn = document.getElementById('darkToggle');
+  const body = document.body;
+
+  function toggleDark() {
+    body.classList.toggle('dark');
+    const isDark = body.classList.contains('dark');
+    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+    toggleBtn.innerHTML = isDark
+      ? '<i class="fas fa-sun"></i> <span>লাইট</span>'
+      : '<i class="fas fa-moon"></i> <span>ডার্ক</span>';
+  }
+
+  function loadDark() {
+    const saved = localStorage.getItem('darkMode');
+    if (saved === 'enabled') {
+      body.classList.add('dark');
+      toggleBtn.innerHTML = '<i class="fas fa-sun"></i> <span>লাইট</span>';
+    }
+  }
+
+  toggleBtn.addEventListener('click', toggleDark);
+  document.addEventListener('DOMContentLoaded', loadDark);
+
+  // ===== TOAST =====
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.className = 'toast show ' + (type || 'success');
+    setTimeout(() => { t.className = 'toast'; }, 3500);
+  }
+  window.showToast = showToast;
+
+  // ============================================
+  // যন্ত্রপাতি পেজের JavaScript
+  // ============================================
+
+  // ===== যন্ত্রপাতি ডাটাবেস =====
+  var equipData = [
+    { id: 1, name: 'ট্রাক্টর', category: 'ভারী যন্ত্রপাতি', emoji: '🚜', rent: 1200, status: 'available', description: 'জমি চাষ, লাঙ্গল, মই দেওয়া—সব কাজে ব্যবহার হয়।' },
+    { id: 2, name: 'কম্বাইন হারভেস্টার', category: 'ভারী যন্ত্রপাতি', emoji: '🌾', rent: 3000, status: 'available', description: 'একই সাথে ফসল কাটা, মাড়াই ও পরিষ্কার করে। সময় বাঁচায় অনেক।' },
+    { id: 3, name: 'সেচ পাম্প (ডিজেল)', category: 'সেচ যন্ত্রপাতি', emoji: '💧', rent: 500, status: 'available', description: 'ডিজেল চালিত শক্তিশালী পাম্প, বড় জমিতে সেচের জন্য উপযুক্ত।' },
+    { id: 4, name: 'বীজ বপনের মেশিন', category: 'চাষ যন্ত্রপাতি', emoji: '🌱', rent: 800, status: 'rented', description: 'স্বয়ংক্রিয়ভাবে বীজ বপন করে, সময় ও শ্রম বাঁচায়।' },
+    { id: 5, name: 'স্প্রে মেশিন', category: 'সুরক্ষা যন্ত্রপাতি', emoji: '🧴', rent: 400, status: 'available', description: 'কীটনাশক, আগাছানাশক ও রোগনাশক প্রয়োগের জন্য।' },
+    { id: 6, name: 'পরিবহন ট্রাক', category: 'পরিবহন যন্ত্রপাতি', emoji: '🚛', rent: 1500, status: 'unavailable', description: 'ফসল, সার, যন্ত্রপাতি—সব পরিবহনের জন্য।' }
+  ];
+
+  // ===== DOM এলিমেন্ট =====
+  var equipGrid = document.getElementById('equipGrid');
+  var searchInput = document.getElementById('searchInput');
+  var categoryFilter = document.getElementById('categoryFilter');
+  var noResult = document.getElementById('noResult');
+  var searchTerm = document.getElementById('searchTerm');
+
+  // ===== স্ট্যাটাস ম্যাপ =====
+  var statusMap = {
+    'available': '<span class="status-badge available"><i class="fas fa-check-circle"></i> উপলব্ধ</span>',
+    'rented': '<span class="status-badge rented"><i class="fas fa-clock"></i> ভাড়ায় গেছে</span>',
+    'unavailable': '<span class="status-badge unavailable"><i class="fas fa-times-circle"></i> অউপলব্ধ</span>'
+  };
+
+  // ===== যন্ত্রপাতি রেন্ডার =====
+  function renderEquipment(items) {
+    if (!equipGrid) return;
+    if (items.length === 0) {
+      equipGrid.innerHTML = '';
+      if (noResult) noResult.style.display = 'block';
+      return;
+    }
+    if (noResult) noResult.style.display = 'none';
+
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      html += `
+        <div class="card equip-card">
+          <div class="equip-icon">${item.emoji}</div>
+          <h3 class="equip-name">${item.name}</h3>
+          <div class="equip-tags">
+            <span class="tag"><i class="fas fa-tag"></i> ${item.category}</span>
+            ${statusMap[item.status] || ''}
+          </div>
+          <div class="equip-info">
+            <span class="label">ভাড়া (ঘণ্টা):</span>
+            <span class="value">${item.rent} টাকা</span>
+          </div>
+          <p class="equip-description">${item.description}</p>
+          <div style="margin-top: auto; padding-top: 12px;">
+            <a href="equipment-detail.html?id=${item.id}" class="btn btn-primary btn-sm">
+              <i class="fas fa-eye"></i> বিস্তারিত
+            </a>
+          </div>
+        </div>
+      `;
+    }
+    equipGrid.innerHTML = html;
+  }
+
+  // ===== ফিল্টার =====
+  function filterEquipment() {
+    if (!searchInput || !categoryFilter) return;
+    var query = searchInput.value.toLowerCase().trim();
+    var category = categoryFilter.value;
+    var filtered = equipData;
+    if (query !== '') {
+      filtered = [];
+      for (var i = 0; i < equipData.length; i++) {
+        var item = equipData[i];
+        if (item.name.toLowerCase().indexOf(query) !== -1 || item.category.indexOf(query) !== -1 || item.description.indexOf(query) !== -1) {
+          filtered.push(item);
+        }
+      }
+    }
+    if (category !== 'all') {
+      var catFiltered = [];
+      for (var j = 0; j < filtered.length; j++) {
+        if (filtered[j].category === category) {
+          catFiltered.push(filtered[j]);
+        }
+      }
+      filtered = catFiltered;
+    }
+    if (filtered.length === 0) {
+      if (searchTerm) searchTerm.textContent = query || category;
+      if (noResult) noResult.style.display = 'block';
+      if (equipGrid) equipGrid.innerHTML = '';
+    } else {
+      if (noResult) noResult.style.display = 'none';
+      renderEquipment(filtered);
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('keyup', filterEquipment);
+    searchInput.addEventListener('search', function() {
+      if (this.value === '') filterEquipment();
+    });
+  }
+  if (categoryFilter) {
+    categoryFilter.addEventListener('change', filterEquipment);
+  }
+
+  // ===== ইনিশিয়াল রেন্ডার =====
+  document.addEventListener('DOMContentLoaded', function() {
+    renderEquipment(equipData);
+    console.log('✅ যন্ত্রপাতি পেজ লোড হয়েছে!');
+  });
+
+  console.log('✅ কৃষি সহায়তা যন্ত্রপাতি পেজ লোড হয়েছে!');
+</script>
+
+</body>
+</html>
