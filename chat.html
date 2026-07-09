@@ -490,6 +490,8 @@
       <a href="contact.html"><i class="fas fa-phone-alt"></i> যোগাযোগ</a>
       <a href="chat.html" class="active"><i class="fas fa-comments"></i> চ্যাট</a>
       <a href="admin.html"><i class="fas fa-user-shield"></i> অ্যাডমিন</a>
+      <a href="login.html" id="loginNavBtn"><i class="fas fa-sign-in-alt"></i> লগইন</a>
+      <a href="#" id="logoutNavBtn" style="display:none;"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
     </div>
   </div>
 </nav>
@@ -540,23 +542,6 @@
 </main>
 
 <script src="js/firebase-config.js"></script>
-
-<!-- ===== SERVICE WORKER ===== -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js')
-        .then(function(registration) {
-          console.log('✅ Service Worker রেজিস্টার হয়েছে:', registration);
-        })
-        .catch(function(error) {
-          console.log('❌ Service Worker রেজিস্টার হয়নি:', error);
-        });
-    });
-  } else {
-    console.log('ℹ️ এই ব্রাউজার Service Worker সাপোর্ট করে না।');
-  }
-</script>
 
 <!-- ===== FOOTER ===== -->
 <footer>
@@ -610,6 +595,53 @@
 
 <!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script>
+  (function() {
+    const loginNavBtn = document.getElementById('loginNavBtn');
+    const logoutNavBtn = document.getElementById('logoutNavBtn');
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        if (loginNavBtn) loginNavBtn.style.display = 'none';
+        if (logoutNavBtn) logoutNavBtn.style.display = 'inline-flex';
+      } else {
+        if (loginNavBtn) loginNavBtn.style.display = 'inline-flex';
+        if (logoutNavBtn) logoutNavBtn.style.display = 'none';
+      }
+    });
+
+    if (logoutNavBtn) {
+
+    logoutNavBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      firebase.auth().signOut().then(function() {
+        window.location.href = 'login.html';
+      });
+    });
+  }
+  })();
+</script>
+
+<!-- ===== SERVICE WORKER ===== -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('sw.js')
+        .then(function(registration) {
+          console.log('✅ Service Worker রেজিস্টার হয়েছে:', registration);
+        })
+        .catch(function(error) {
+          console.log('❌ Service Worker রেজিস্টার হয়নি:', error);
+        });
+    });
+  } else {
+    console.log('ℹ️ এই ব্রাউজার Service Worker সাপোর্ট করে না।');
+  }
+</script>
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
