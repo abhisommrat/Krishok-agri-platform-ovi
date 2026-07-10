@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+  <title>রোগ শনাক্তকরণ - কৃষি সহায়তা</title>
+  
+  <!-- ===== ফন্ট ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ===== আইকন ===== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    .detection-container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+    .detection-container h2 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .detection-container .subtitle {
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    
+    /* ===== Camera ===== */
+    .camera-wrapper {
+      position: relative;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .camera-wrapper video,
+    .camera-wrapper canvas {
+      width: 100%;
+      display: block;
+    }
+    .camera-wrapper canvas {
+      display: none;
+    }
+    
+    /* ===== Buttons ===== */
+    .btn-group-camera {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 16px 0;
+    }
+    .btn-camera {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-btn);
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-camera-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+    .btn-camera-primary:hover {
+      background: var(--primary-dark);
+      transform: scale(1.04);
+    }
+    .btn-camera-secondary {
+      background: var(--secondary);
+      color: var(--text-dark);
+    }
+    .btn-camera-secondary:hover {
+      background: var(--secondary-light);
+      transform: scale(1.04);
+    }
+    .btn-camera-danger {
+      background: var(--danger);
+      color: var(--white);
+    }
+    .btn-camera-danger:hover {
+      background: #c82333;
+      transform: scale(1.04);
+    }
+    
+    /* ===== Result ===== */
+    .result-box {
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-top: 16px;
+      display: none;
+    }
+    .result-box.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    .result-box .disease-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .result-box .disease-name i {
+      color: var(--danger);
+    }
+    .result-box .disease-desc {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+    .result-box .disease-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .result-box .disease-detail .item {
+      background: var(--white);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--secondary);
+    }
+    .result-box .disease-detail .item .label {
+      font-size: 0.7rem;
+      color: var(--gray);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .result-box .disease-detail .item .value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    /* ===== Loading ===== */
+    .loading {
+      text-align: center;
+      padding: 20px;
+      display: none;
+    }
+    .loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--bg);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      .result-box .disease-detail {
+        grid-template-columns: 1fr;
+      }
+      .btn-group-camera {
+        flex-direction: column;
+      }
+      .btn-camera {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🌾</span>
+        <h1>কৃষি<span>সহায়তা</span></h1>
+      </a>
+      <div class="header-actions">
+        <button class="dark-toggle" id="darkToggle">
+          <i class="fas fa-moon"></i> <span>ডার্ক</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html"><i class="fas fa-home"></i> হোম</a>
+      <a href="crops.html"><i class="fas fa-seedling"></i> ফসল</a>
+      <a href="bazardor.html"><i class="fas fa-tags"></i> বাজারদর</a>
+      <a href="equipment.html"><i class="fas fa-tractor"></i> যন্ত্রপাতি</a>
+      <a href="rental.html"><i class="fas fa-hand-holding-usd"></i> ভাড়া</a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
+      <a href="contact.html"><i class="fas fa-phone-alt"></i> যোগাযোগ</a>
+      <a href="chat.html"><i class="fas fa-comments"></i> চ্যাট</a>
+      <a href="admin.html"><i class="fas fa-user-shield"></i> অ্যাডমিন</a>
+      <a href="disease-detection.html" class="active"><i class="fas fa-microscope"></i> রোগ শনাক্ত</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main>
+  <div class="container">
+
+    <div class="detection-container">
+      <h2><i class="fas fa-microscope"></i> ফসলের রোগ শনাক্তকরণ</h2>
+      <p class="subtitle">আপনার ফসলের ছবি তুলুন, AI রোগ শনাক্ত করবে</p>
+
+      <!-- ===== Camera ===== -->
+      <div class="camera-wrapper">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <!-- ===== Loading ===== -->
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p style="color:var(--text-light);">🔍 রোগ শনাক্ত করা হচ্ছে...</p>
+      </div>
+
+      <!-- ===== Buttons ===== -->
+      <div class="btn-group-camera">
+        <button class="btn-camera btn-camera-primary" id="startCamera">
+          <i class="fas fa-camera"></i> ক্যামেরা চালু
+        </button>
+        <button class="btn-camera btn-camera-secondary" id="capturePhoto" style="display:none;">
+          <i class="fas fa-camera-retro"></i> ছবি তুলুন
+        </button>
+        <button class="btn-camera btn-camera-danger" id="stopCamera" style="display:none;">
+          <i class="fas fa-stop"></i> বন্ধ করুন
+        </button>
+      </div>
+
+      <!-- ===== Result ===== -->
+      <div class="result-box" id="resultBox">
+        <div class="disease-name" id="diseaseName">
+          <i class="fas fa-exclamation-triangle"></i> <span id="diseaseTitle">——</span>
+        </div>
+        <p class="disease-desc" id="diseaseDesc">——</p>
+        <div class="disease-detail">
+          <div class="item">
+            <div class="label">সমাধান</div>
+            <div class="value" id="diseaseRemedy">——</div>
+          </div>
+          <div class="item">
+            <div class="label">ঔষধ</div>
+            <div class="value" id="diseaseMedicine">——</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px; text-align:center; color:var(--gray); font-size:0.85rem;">
+        <i class="fas fa-info-circle"></i> ধান, গম, টমেটো, আলু, পেঁয়াজ ইত্যাদি ফসলের রোগ শনাক্ত করে
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <a href="index.html" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> হোমপেজে ফিরে যান
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>🌾 কৃষি সহায়তা</h4>
+        <p style="color:#b3d9b3; font-size:0.95rem;">কৃষকের বন্ধু, উন্নতির ঠিকানা।</p>
+        <div class="social">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>দ্রুত লিংক</h4>
+        <ul>
+          <li><a href="crops.html">ফসলের তথ্য</a></li>
+          <li><a href="disease-detection.html">রোগ শনাক্ত</a></li>
+          <li><a href="rental.html">ভাড়া ক্যালকুলেটর</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>সহায়তা</h4>
+        <ul>
+          <li><a href="contact.html">যোগাযোগ</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>যোগাযোগ</h4>
+        <ul>
+          <li><i class="fas fa-phone"></i> ১৬১২৩</li>
+          <li><i class="fas fa-envelope"></i> info@krishisahayata.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="js/dark-mode.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/disease-detection.js"></script>
+
+</body>
+</html>
