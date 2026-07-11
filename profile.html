@@ -1,583 +1,535 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-  <title>প্রোফাইল - কৃষি সহায়তা</title>
-  
-  <!-- ===== ফন্ট ===== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- ===== আইকন ===== -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
-  <!-- ===== CSS ===== -->
-  <link rel="stylesheet" href="css/style.css">
-  
-  <style>
-    /* ===== প্রোফাইল কন্টেইনার ===== */
-    .profile-container {
-      max-width: 900px;
-      margin: 30px auto;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+    <title>প্রোফাইল - কৃষি সহায়তা</title>
     
-    /* ===== প্রোফাইল হেডার ===== */
-    .profile-header {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
-      color: var(--white);
-      border-radius: var(--radius);
-      padding: 40px 30px;
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    .profile-header .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-      border: 4px solid rgba(255,255,255,0.3);
-    }
-    .profile-header .info h2 {
-      font-size: 1.6rem;
-      margin-bottom: 4px;
-    }
-    .profile-header .info p {
-      opacity: 0.85;
-      font-size: 1rem;
-    }
-    .profile-header .info .badge {
-      background: rgba(255,255,255,0.2);
-      padding: 4px 14px;
-      border-radius: 30px;
-      font-size: 0.75rem;
-      display: inline-block;
-      margin-top: 6px;
-    }
-    .profile-header .edit-btn {
-      margin-left: auto;
-      background: rgba(255,255,255,0.15);
-      color: var(--white);
-      border: none;
-      padding: 10px 24px;
-      border-radius: 30px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .profile-header .edit-btn:hover {
-      background: var(--secondary);
-      color: var(--text-dark);
-    }
+    <!-- ===== ফন্ট ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    /* ===== প্রোফাইল গ্রিড ===== */
-    .profile-grid {
-      display: grid;
-      gap: 24px;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 768px) {
-      .profile-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+    <!-- ===== আইকন ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
-    .profile-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
-    .profile-card:hover {
-      box-shadow: var(--shadow-hover);
-    }
-    .profile-card .card-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .profile-card .card-title i {
-      color: var(--secondary);
-    }
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="css/style.css">
     
-    /* ===== প্রোফাইল আইটেম ===== */
-    .profile-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #eef5ee;
-    }
-    .profile-item:last-child {
-      border-bottom: none;
-    }
-    .profile-item .label {
-      color: var(--gray);
-      font-size: 0.85rem;
-    }
-    .profile-item .value {
-      font-weight: 600;
-      color: var(--text-dark);
-      font-size: 0.95rem;
-    }
-    
-    /* ===== স্ট্যাটস ===== */
-    .stats-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .stat-box {
-      background: var(--bg);
-      padding: 16px;
-      border-radius: var(--radius-sm);
-      text-align: center;
-    }
-    .stat-box .number {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
-    .stat-box .label {
-      font-size: 0.8rem;
-      color: var(--gray);
-    }
-    
-    /* ===== ফেভারিট ফসল ===== */
-    .fav-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .fav-list .fav-item {
-      background: var(--bg);
-      padding: 6px 14px;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--primary);
-      border: 1px solid #e8f5e9;
-    }
-    .fav-list .fav-item i {
-      margin-right: 6px;
-      color: var(--secondary);
-    }
-    
-    /* ===== সেটিংস টগল ===== */
-    .setting-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #eef5ee;
-    }
-    .setting-row:last-child {
-      border-bottom: none;
-    }
-    .setting-row .setting-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .setting-row .setting-info i {
-      color: var(--primary-light);
-      width: 24px;
-      text-align: center;
-    }
-    .setting-row .setting-info .label {
-      font-size: 0.95rem;
-      color: var(--text-dark);
-    }
-    .toggle-switch {
-      width: 48px;
-      height: 26px;
-      background: #ccc;
-      border-radius: 30px;
-      position: relative;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .toggle-switch.active {
-      background: var(--primary);
-    }
-    .toggle-switch .toggle-thumb {
-      width: 22px;
-      height: 22px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      transition: var(--transition);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-    .toggle-switch.active .toggle-thumb {
-      left: 24px;
-    }
-    
-    /* ===== লগআউট ===== */
-    .logout-btn {
-      width: 100%;
-      padding: 14px;
-      background: #fee2e2;
-      color: #dc2626;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .logout-btn:hover {
-      background: #fecaca;
-      transform: scale(1.02);
-    }
-    
-    /* ===== মডাল ===== */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.show {
-      display: flex;
-    }
-    .modal-content {
-      background: var(--white);
-      max-width: 500px;
-      width: 100%;
-      border-radius: var(--radius);
-      padding: 30px;
-      position: relative;
-      animation: modalIn 0.3s ease;
-    }
-    @keyframes modalIn {
-      from { opacity: 0; transform: translateY(-20px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .modal-content .close-modal {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      background: none;
-      border: none;
-      font-size: 1.6rem;
-      color: var(--gray);
-      cursor: pointer;
-    }
-    .modal-content h3 {
-      color: var(--primary);
-      margin-bottom: 16px;
-    }
-    .modal-content .form-group {
-      margin-bottom: 16px;
-    }
-    .modal-content .form-group label {
-      display: block;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 4px;
-      font-size: 0.9rem;
-    }
-    .modal-content .form-group input {
-      width: 100%;
-      padding: 10px 14px;
-      border: 2px solid #d8e8d8;
-      border-radius: 10px;
-      font-size: 1rem;
-      outline: none;
-      transition: var(--transition);
-      background: var(--bg);
-      color: var(--text-dark);
-    }
-    .modal-content .form-group input:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 4px rgba(46,125,94,0.1);
-    }
-    .modal-content .btn-save {
-      width: 100%;
-      padding: 12px;
-      background: var(--primary);
-      color: var(--white);
-      border: none;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .modal-content .btn-save:hover {
-      background: var(--primary-dark);
-    }
-    
-    body.dark .profile-card {
-      background: var(--white);
-    }
-    body.dark .stat-box {
-      background: var(--white);
-    }
-    body.dark .fav-list .fav-item {
-      background: var(--white);
-      border-color: var(--dark-border);
-    }
-    body.dark .setting-row {
-      border-color: var(--dark-border);
-    }
-    body.dark .profile-item {
-      border-color: var(--dark-border);
-    }
-    body.dark .modal-content {
-      background: var(--white);
-    }
-    body.dark .modal-content .form-group input {
-      background: var(--white);
-      border-color: var(--dark-border);
-      color: var(--text-dark);
-    }
-    body.dark .logout-btn {
-      background: #3a1a1a;
-      color: #ff6b6b;
-    }
-    body.dark .logout-btn:hover {
-      background: #4a2a2a;
-    }
-  </style>
+    <style>
+        /* ============================================================
+           প্রোফাইল পেজ - CSS
+           ============================================================ */
+        .profile-container { max-width: 900px; margin: 30px auto; }
+        
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
+            color: var(--white);
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .profile-header .avatar-wrapper { position: relative; }
+        .profile-header .avatar-wrapper .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            border: 4px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .profile-header .avatar-wrapper .avatar:hover { transform: scale(1.05); border-color: var(--secondary); }
+        .profile-header .avatar-wrapper .camera-icon {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: var(--secondary);
+            color: var(--text-dark);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border: 2px solid var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .profile-header .avatar-wrapper .camera-icon:hover { transform: scale(1.1); }
+        .profile-header .info h2 { font-size: 1.6rem; margin-bottom: 4px; }
+        .profile-header .info p { opacity: 0.85; font-size: 1rem; }
+        .profile-header .info .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-top: 6px;
+        }
+        .profile-header .edit-btn {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .profile-header .edit-btn:hover { background: var(--secondary); color: var(--text-dark); }
+        
+        .profile-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) { .profile-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .profile-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .profile-card:hover { box-shadow: var(--shadow-hover); }
+        .profile-card .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .profile-card .card-title i { color: var(--secondary); }
+        
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eef5ee;
+        }
+        .profile-item:last-child { border-bottom: none; }
+        .profile-item .label { color: var(--gray); font-size: 0.85rem; }
+        .profile-item .value {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            text-align: right;
+            max-width: 60%;
+        }
+        
+        .stats-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .stat-box {
+            background: var(--bg);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+        .stat-box .number { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
+        .stat-box .label { font-size: 0.8rem; color: var(--gray); }
+        
+        .fav-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .fav-list .fav-item {
+            background: var(--bg);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            border: 1px solid #e8f5e9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fav-list .fav-item i { color: var(--secondary); }
+        .fav-list .fav-item .remove-fav {
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 0.75rem;
+            margin-left: 4px;
+        }
+        .fav-list .fav-item .remove-fav:hover { color: #c82333; }
+        
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eef5ee;
+        }
+        .setting-row:last-child { border-bottom: none; }
+        .setting-row .setting-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .setting-row .setting-info i {
+            color: var(--primary-light);
+            width: 24px;
+            text-align: center;
+        }
+        .setting-row .setting-info .label { font-size: 0.95rem; color: var(--text-dark); }
+        .toggle-switch {
+            width: 48px;
+            height: 26px;
+            background: #ccc;
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .toggle-switch.active { background: var(--primary); }
+        .toggle-switch .toggle-thumb {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .toggle-switch.active .toggle-thumb { left: 24px; }
+        
+        .logout-btn {
+            width: 100%;
+            padding: 14px;
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .logout-btn:hover { background: #fecaca; transform: scale(1.02); }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-content {
+            background: var(--white);
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--radius);
+            padding: 30px;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-content .close-modal {
+            position: sticky;
+            top: 0;
+            float: right;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--gray);
+            cursor: pointer;
+            z-index: 1;
+        }
+        .modal-content h3 { color: var(--primary); margin-bottom: 16px; font-size: 1.3rem; }
+        .modal-content .form-group { margin-bottom: 16px; }
+        .modal-content .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        .modal-content .form-group label i {
+            color: var(--primary-light);
+            margin-right: 6px;
+        }
+        .modal-content .form-group input,
+        .modal-content .form-group textarea,
+        .modal-content .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #d8e8d8;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+            background: var(--bg);
+            color: var(--text-dark);
+        }
+        .modal-content .form-group input:focus,
+        .modal-content .form-group textarea:focus,
+        .modal-content .form-group select:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(46,125,94,0.1);
+        }
+        .modal-content .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .modal-content .btn-save {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .modal-content .btn-save:hover { background: var(--primary-dark); }
+        
+        body.dark .profile-card { background: var(--white); }
+        body.dark .stat-box { background: var(--white); }
+        body.dark .fav-list .fav-item {
+            background: var(--white);
+            border-color: var(--dark-border);
+        }
+        body.dark .setting-row { border-color: var(--dark-border); }
+        body.dark .profile-item { border-color: var(--dark-border); }
+        body.dark .modal-content { background: var(--white); }
+        body.dark .modal-content .form-group input,
+        body.dark .modal-content .form-group textarea,
+        body.dark .modal-content .form-group select {
+            background: var(--white);
+            border-color: var(--dark-border);
+            color: var(--text-dark);
+        }
+        body.dark .logout-btn {
+            background: #3a1a1a;
+            color: #ff6b6b;
+        }
+        body.dark .logout-btn:hover { background: #4a2a2a; }
+        
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .profile-header .edit-btn {
+                margin-left: 0;
+                width: 100%;
+            }
+            .profile-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            .profile-item .value {
+                text-align: left;
+                max-width: 100%;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <!-- ===== HEADER ===== -->
 <header>
-  <div class="container">
-    <div class="header-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-icon">🌾</span>
-        <h1>কৃষি<span>সহায়তা</span></h1>
-      </a>
-      <div class="header-actions">
-        <button class="dark-toggle" id="darkToggle">
-          <i class="fas fa-moon"></i> <span>ডার্ক</span>
-        </button>
-      </div>
+    <div class="container">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌾</span>
+                <h1>কৃষি<span>সহায়তা</span></h1>
+            </a>
+            <div class="header-actions">
+                <button class="dark-toggle" id="darkToggle">
+                    <i class="fas fa-moon"></i> <span>ডার্ক</span>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 
 <!-- ===== NAVIGATION ===== -->
 <nav>
-  <div class="container">
-    <div class="nav-inner">
-      <a href="index.html"><i class="fas fa-home"></i> হোম</a>
-      <a href="crops.html"><i class="fas fa-seedling"></i> ফসল</a>
-      <a href="bazardor.html"><i class="fas fa-tags"></i> বাজারদর</a>
-      <a href="equipment.html"><i class="fas fa-tractor"></i> যন্ত্রপাতি</a>
-      <a href="rental.html"><i class="fas fa-hand-holding-usd"></i> ভাড়া</a>
-      <a href="disease-detection.html"><i class="fas fa-microscope"></i> রোগ শনাক্ত</a>
-      <a href="chatbot.html"><i class="fas fa-robot"></i> চ্যাটবট</a>
-      <a href="forum.html"><i class="fas fa-users"></i> ফোরাম</a>
-      <a href="about.html"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
-      <a href="contact.html"><i class="fas fa-phone-alt"></i> যোগাযোগ</a>
-      <a href="chat.html"><i class="fas fa-comments"></i> চ্যাট</a>
-      <a href="admin.html"><i class="fas fa-user-shield"></i> অ্যাডমিন</a>
-      <a href="profile.html" class="active"><i class="fas fa-user"></i> প্রোফাইল</a>
+    <div class="container">
+        <div class="nav-inner">
+            <a href="index.html"><i class="fas fa-home"></i> হোম</a>
+            <a href="crops.html"><i class="fas fa-seedling"></i> ফসল</a>
+            <a href="bazardor.html"><i class="fas fa-tags"></i> বাজারদর</a>
+            <a href="equipment.html"><i class="fas fa-tractor"></i> যন্ত্রপাতি</a>
+            <a href="rental.html"><i class="fas fa-hand-holding-usd"></i> ভাড়া</a>
+            <a href="disease-detection.html"><i class="fas fa-microscope"></i> রোগ শনাক্ত</a>
+            <a href="chatbot.html"><i class="fas fa-robot"></i> চ্যাটবট</a>
+            <a href="forum.html"><i class="fas fa-users"></i> ফোরাম</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
+            <a href="contact.html"><i class="fas fa-phone-alt"></i> যোগাযোগ</a>
+            <a href="chat.html"><i class="fas fa-comments"></i> চ্যাট</a>
+            <a href="profile.html" class="active"><i class="fas fa-user"></i> প্রোফাইল</a>
+            <a href="admin.html"><i class="fas fa-user-shield"></i> অ্যাডমিন</a>
+        </div>
     </div>
-  </div>
 </nav>
 
 <!-- ===== MAIN ===== -->
 <main>
-  <div class="container">
-    <div class="profile-container">
+    <div class="container">
+        <div class="profile-container">
 
-      <!-- ===== প্রোফাইল হেডার ===== -->
-      <div class="profile-header">
-        <div class="avatar">👨‍🌾</div>
-        <div class="info">
-          <h2 id="userName">জন কৃষক</h2>
-          <p id="userEmail">john@krishisahayata.com</p>
-          <span class="badge"><i class="fas fa-check-circle"></i> সক্রিয়</span>
-        </div>
-        <button class="edit-btn" id="editProfileBtn"><i class="fas fa-edit"></i> প্রোফাইল এডিট</button>
-      </div>
+            <!-- ===== প্রোফাইল হেডার ===== -->
+            <div class="profile-header">
+                <div class="avatar-wrapper">
+                    <div class="avatar" id="avatarDisplay">👨‍🌾</div>
+                    <div class="camera-icon" id="changePhotoBtn"><i class="fas fa-camera"></i></div>
+                </div>
+                <div class="info">
+                    <h2 id="userName">জন কৃষক</h2>
+                    <p id="userEmail">john@krishisahayata.com</p>
+                    <span class="badge"><i class="fas fa-check-circle"></i> সক্রিয়</span>
+                </div>
+                <button class="edit-btn" id="editProfileBtn"><i class="fas fa-edit"></i> প্রোফাইল এডিট</button>
+            </div>
 
-      <!-- ===== প্রোফাইল গ্রিড ===== -->
-      <div class="profile-grid">
+            <!-- ===== প্রোফাইল গ্রিড ===== -->
+            <div class="profile-grid">
 
-        <!-- ===== বেসিক তথ্য ===== -->
-        <div class="profile-card">
-          <div class="card-title"><i class="fas fa-info-circle"></i> বেসিক তথ্য</div>
-          <div class="profile-item">
-            <span class="label">নাম</span>
-            <span class="value" id="displayName">জন কৃষক</span>
-          </div>
-          <div class="profile-item">
-            <span class="label">ইমেইল</span>
-            <span class="value" id="displayEmail">john@krishisahayata.com</span>
-          </div>
-          <div class="profile-item">
-            <span class="label">মোবাইল</span>
-            <span class="value" id="displayPhone">০১৭১১-১১১১১১</span>
-          </div>
-          <div class="profile-item">
-            <span class="label">ঠিকানা</span>
-            <span class="value" id="displayAddress">ধানমন্ডি, ঢাকা</span>
-          </div>
-          <div class="profile-item">
-            <span class="label">জেলা</span>
-            <span class="value" id="displayDistrict">ঢাকা</span>
-          </div>
-        </div>
+                <!-- ===== ব্যক্তিগত তথ্য ===== -->
+                <div class="profile-card">
+                    <div class="card-title"><i class="fas fa-info-circle"></i> ব্যক্তিগত তথ্য</div>
+                    <div class="profile-item">
+                        <span class="label"><i class="fas fa-user"></i> সম্পূর্ণ নাম</span>
+                        <span class="value" id="displayFullName">জন কৃষক</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="label"><i class="fas fa-envelope"></i> ইমেইল</span>
+                        <span class="value" id="displayEmail">john@krishisahayata.com</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="label"><i class="fas fa-phone"></i> মোবাইল</span>
+                        <span class="value" id="displayPhone">০১৭১১-১১১১১১</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="label"><i class="fas fa-map"></i> বিভাগ</span>
+                        <span class="value" id="displayDivision">ঢাকা</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="label"><i class="fas fa-map-marker-alt"></i> জেলা</span>
+                        <span class="value" id="displayDistrict">ঢাকা</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="label"><i class="fas fa-location-dot"></i> উপজেলা</span>
+                        <span class="value" id="displayUpazila">সাভার</span>
+                    </div>
+                </div>
 
-        <!-- ===== পরিসংখ্যান ===== -->
-        <div class="profile-card">
-          <div class="card-title"><i class="fas fa-chart-bar"></i> পরিসংখ্যান</div>
-          <div class="stats-grid">
-            <div class="stat-box">
-              <div class="number">১২</div>
-              <div class="label">মোট বুকিং</div>
-            </div>
-            <div class="stat-box">
-              <div class="number">৮</div>
-              <div class="label">সক্রিয় বুকিং</div>
-            </div>
-            <div class="stat-box">
-              <div class="number">৫</div>
-              <div class="label">ফেভারিট ফসল</div>
-            </div>
-            <div class="stat-box">
-              <div class="number">৩</div>
-              <div class="label">পোস্ট</div>
-            </div>
-          </div>
-        </div>
+                <!-- ===== নিজের সম্পর্কে ===== -->
+                <div class="profile-card">
+                    <div class="card-title"><i class="fas fa-user-astronaut"></i> নিজের সম্পর্কে</div>
+                    <div id="displayAbout" style="color:var(--text-light); font-size:0.95rem; line-height:1.7;">
+                        আমি একজন কৃষক। ধান ও সবজি চাষ করি। আধুনিক প্রযুক্তি ব্যবহার করে চাষাবাদ করতে আগ্রহী।
+                    </div>
+                    <div style="margin-top:12px;">
+                        <button class="btn btn-secondary btn-sm" id="editAboutBtn"><i class="fas fa-pen"></i> সম্পর্কে সম্পাদনা</button>
+                    </div>
+                </div>
 
-        <!-- ===== ফেভারিট ফসল ===== -->
-        <div class="profile-card">
-          <div class="card-title"><i class="fas fa-star"></i> ফেভারিট ফসল</div>
-          <div class="fav-list" id="favCrops">
-            <span class="fav-item"><i class="fas fa-star"></i> ধান</span>
-            <span class="fav-item"><i class="fas fa-star"></i> টমেটো</span>
-            <span class="fav-item"><i class="fas fa-star"></i> গম</span>
-            <span class="fav-item"><i class="fas fa-star"></i> আলু</span>
-            <span class="fav-item"><i class="fas fa-star"></i> পেঁয়াজ</span>
-          </div>
-          <div style="margin-top:12px;">
-            <button class="btn btn-primary btn-sm" id="addFavBtn"><i class="fas fa-plus"></i> যোগ করুন</button>
-          </div>
-        </div>
+                <!-- ===== পরিসংখ্যান ===== -->
+                <div class="profile-card">
+                    <div class="card-title"><i class="fas fa-chart-bar"></i> পরিসংখ্যান</div>
+                    <div class="stats-grid">
+                        <div class="stat-box"><div class="number">১২</div><div class="label">মোট বুকিং</div></div>
+                        <div class="stat-box"><div class="number">৮</div><div class="label">সক্রিয় বুকিং</div></div>
+                        <div class="stat-box"><div class="number">৫</div><div class="label">ফেভারিট ফসল</div></div>
+                        <div class="stat-box"><div class="number">৩</div><div class="label">পোস্ট</div></div>
+                    </div>
+                </div>
 
-        <!-- ===== সেটিংস ===== -->
-        <div class="profile-card">
-          <div class="card-title"><i class="fas fa-cog"></i> সেটিংস</div>
-          
-          <div class="setting-row">
-            <div class="setting-info">
-              <i class="fas fa-moon"></i>
-              <span class="label">ডার্ক মোড</span>
+                <!-- ===== ফেভারিট ফসল ===== -->
+                <div class="profile-card">
+                    <div class="card-title"><i class="fas fa-star"></i> ফেভারিট ফসল</div>
+                    <div class="fav-list" id="favCrops">
+                        <span class="fav-item"><i class="fas fa-star"></i> ধান <span class="remove-fav" data-crop="ধান">&times;</span></span>
+                        <span class="fav-item"><i class="fas fa-star"></i> টমেটো <span class="remove-fav" data-crop="টমেটো">&times;</span></span>
+                        <span class="fav-item"><i class="fas fa-star"></i> গম <span class="remove-fav" data-crop="গম">&times;</span></span>
+                    </div>
+                    <div style="margin-top:12px;">
+                        <button class="btn btn-primary btn-sm" id="addFavBtn"><i class="fas fa-plus"></i> যোগ করুন</button>
+                    </div>
+                </div>
+
+                <!-- ===== সেটিংস ===== -->
+                <div class="profile-card">
+                    <div class="card-title"><i class="fas fa-cog"></i> সেটিংস</div>
+                    <div class="setting-row">
+                        <div class="setting-info"><i class="fas fa-moon"></i><span class="label">ডার্ক মোড</span></div>
+                        <div class="toggle-switch active" id="darkToggleSwitch"><div class="toggle-thumb"></div></div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info"><i class="fas fa-bell"></i><span class="label">নোটিফিকেশন</span></div>
+                        <div class="toggle-switch active" id="notifToggleSwitch"><div class="toggle-thumb"></div></div>
+                    </div>
+                    <div style="margin-top:16px;">
+                        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+                    </div>
+                </div>
+
             </div>
-            <div class="toggle-switch active" id="darkToggleSwitch">
-              <div class="toggle-thumb"></div>
-            </div>
-          </div>
-          
-          <div class="setting-row">
-            <div class="setting-info">
-              <i class="fas fa-bell"></i>
-              <span class="label">নোটিফিকেশন</span>
-            </div>
-            <div class="toggle-switch active" id="notifToggleSwitch">
-              <div class="toggle-thumb"></div>
-            </div>
-          </div>
-          
-          <div class="setting-row">
-            <div class="setting-info">
-              <i class="fas fa-language"></i>
-              <span class="label">ভাষা</span>
-            </div>
-            <span style="font-weight:600; color:var(--text-dark);">বাংলা</span>
-          </div>
-          
-          <div style="margin-top:16px;">
-            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
-          </div>
+
         </div>
 
-      </div>
-
+        <div style="margin:20px 0;">
+            <a href="index.html" class="btn btn-primary"><i class="fas fa-arrow-left"></i> হোমপেজে ফিরে যান</a>
+        </div>
     </div>
-
-    <div style="margin:20px 0;">
-      <a href="index.html" class="btn btn-primary">
-        <i class="fas fa-arrow-left"></i> হোমপেজে ফিরে যান
-      </a>
-    </div>
-  </div>
 </main>
 
 <!-- ===== FOOTER ===== -->
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <h4>🌾 কৃষি সহায়তা</h4>
-        <p style="color:#b3d9b3; font-size:0.95rem;">কৃষকের বন্ধু, উন্নতির ঠিকানা।</p>
-        <div class="social">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-          <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>🌾 কৃষি সহায়তা</h4><p style="color:#b3d9b3;">কৃষকের বন্ধু, উন্নতির ঠিকানা।</p></div>
+            <div><h4>দ্রুত লিংক</h4><ul><li><a href="crops.html">ফসলের তথ্য</a></li><li><a href="profile.html">প্রোফাইল</a></li></ul></div>
+            <div><h4>যোগাযোগ</h4><ul><li><i class="fas fa-phone"></i> ১৬৩৩৩</li><li><i class="fas fa-envelope"></i> info@krishisahayata.com</li></ul></div>
         </div>
-      </div>
-      <div>
-        <h4>দ্রুত লিংক</h4>
-        <ul>
-          <li><a href="crops.html">ফসলের তথ্য</a></li>
-          <li><a href="profile.html">প্রোফাইল</a></li>
-          <li><a href="rental.html">ভাড়া ক্যালকুলেটর</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>সহায়তা</h4>
-        <ul>
-          <li><a href="contact.html">যোগাযোগ</a></li>
-          <li><a href="#">FAQ</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>যোগাযোগ</h4>
-        <ul>
-          <li><i class="fas fa-phone"></i> ১৬৩৩৩</li>
-          <li><i class="fas fa-envelope"></i> info@krishisahayata.com</li>
-        </ul>
-      </div>
+        <div class="footer-bottom"><p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম</p></div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম</p>
-    </div>
-  </div>
 </footer>
 
 <!-- ===== TOAST ===== -->
@@ -585,277 +537,67 @@
 
 <!-- ===== EDIT MODAL ===== -->
 <div class="modal-overlay" id="editModal">
-  <div class="modal-content">
-    <button class="close-modal" id="closeModal">&times;</button>
-    <h3><i class="fas fa-edit"></i> প্রোফাইল এডিট</h3>
-    <form id="editForm">
-      <div class="form-group">
-        <label>নাম</label>
-        <input type="text" id="editName" value="জন কৃষক" />
-      </div>
-      <div class="form-group">
-        <label>ইমেইল</label>
-        <input type="email" id="editEmail" value="john@krishisahayata.com" />
-      </div>
-      <div class="form-group">
-        <label>মোবাইল</label>
-        <input type="tel" id="editPhone" value="০১৭১১-১১১১১১" />
-      </div>
-      <div class="form-group">
-        <label>ঠিকানা</label>
-        <input type="text" id="editAddress" value="ধানমন্ডি, ঢাকা" />
-      </div>
-      <div class="form-group">
-        <label>জেলা</label>
-        <input type="text" id="editDistrict" value="ঢাকা" />
-      </div>
-      <button type="submit" class="btn-save"><i class="fas fa-save"></i> সেভ করুন</button>
-    </form>
-  </div>
+    <div class="modal-content">
+        <button class="close-modal" id="closeModal">&times;</button>
+        <h3><i class="fas fa-edit"></i> প্রোফাইল সম্পাদনা</h3>
+        <form id="editForm">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> সম্পূর্ণ নাম</label>
+                <input type="text" id="editFullName" placeholder="আপনার সম্পূর্ণ নাম" />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> ইমেইল</label>
+                <input type="email" id="editEmail" placeholder="আপনার ইমেইল" />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> মোবাইল</label>
+                <input type="tel" id="editPhone" placeholder="০১XXXXXXXXX" />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-map"></i> বিভাগ</label>
+                <select id="editDivision">
+                    <option value="">-- বিভাগ নির্বাচন করুন --</option>
+                    <option value="ঢাকা">ঢাকা</option>
+                    <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                    <option value="রাজশাহী">রাজশাহী</option>
+                    <option value="খুলনা">খুলনা</option>
+                    <option value="বরিশাল">বরিশাল</option>
+                    <option value="সিলেট">সিলেট</option>
+                    <option value="রংপুর">রংপুর</option>
+                    <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> জেলা</label>
+                <select id="editDistrict">
+                    <option value="">-- প্রথমে বিভাগ নির্বাচন করুন --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-location-dot"></i> উপজেলা</label>
+                <select id="editUpazila">
+                    <option value="">-- প্রথমে জেলা নির্বাচন করুন --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-user-astronaut"></i> নিজের সম্পর্কে</label>
+                <textarea id="editAbout" placeholder="আপনার সম্পর্কে কিছু বলুন..."></textarea>
+            </div>
+            <button type="submit" class="btn-save"><i class="fas fa-save"></i> সেভ করুন</button>
+        </form>
+    </div>
 </div>
 
-<!-- ==========================================
+<!-- ============================================================
      JAVASCRIPT
-     ========================================== -->
+     ============================================================ -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="js/dark-mode.js"></script>
 <script src="js/toast.js"></script>
 <script src="js/firebase-config.js"></script>
-
-<script>
-// ============================================================
-// প্রোফাইল পেজ - JavaScript
-// ============================================================
-
-(function() {
-  'use strict';
-
-  // ===== DOM =====
-  var userName = document.getElementById('userName');
-  var userEmail = document.getElementById('userEmail');
-  var displayName = document.getElementById('displayName');
-  var displayEmail = document.getElementById('displayEmail');
-  var displayPhone = document.getElementById('displayPhone');
-  var displayAddress = document.getElementById('displayAddress');
-  var displayDistrict = document.getElementById('displayDistrict');
-  
-  var editBtn = document.getElementById('editProfileBtn');
-  var editModal = document.getElementById('editModal');
-  var closeModal = document.getElementById('closeModal');
-  var editForm = document.getElementById('editForm');
-  var editName = document.getElementById('editName');
-  var editEmail = document.getElementById('editEmail');
-  var editPhone = document.getElementById('editPhone');
-  var editAddress = document.getElementById('editAddress');
-  var editDistrict = document.getElementById('editDistrict');
-  
-  var logoutBtn = document.getElementById('logoutBtn');
-  var darkToggleSwitch = document.getElementById('darkToggleSwitch');
-  var notifToggleSwitch = document.getElementById('notifToggleSwitch');
-  var favCrops = document.getElementById('favCrops');
-  var addFavBtn = document.getElementById('addFavBtn');
-
-  var currentUser = null;
-  var userData = {};
-
-  // ===== ১. ইউজার ডাটা লোড =====
-  function loadUserData() {
-    if (typeof firebase === 'undefined' || !firebase.auth) {
-      // ডেমো ডাটা
-      setDemoData();
-      return;
-    }
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        currentUser = user;
-        userName.textContent = user.displayName || user.email || 'কৃষক';
-        userEmail.textContent = user.email || '';
-
-        // Firebase Realtime Database থেকে ডাটা লোড
-        if (firebase.database) {
-          var db = firebase.database();
-          db.ref('users/' + user.uid).once('value', function(snapshot) {
-            var data = snapshot.val();
-            if (data) {
-              userData = data;
-              updateUI(data);
-            } else {
-              // ডিফল্ট ডাটা সেট
-              setDefaultUserData(user);
-            }
-          });
-        } else {
-          setDemoData();
-        }
-      } else {
-        // লগইন না থাকলে লগইন পেজে পাঠাও
-        window.location.href = 'login.html';
-      }
-    });
-  }
-
-  // ===== ২. ডিফল্ট ইউজার ডাটা সেট =====
-  function setDefaultUserData(user) {
-    var defaultData = {
-      name: user.displayName || user.email || 'কৃষক',
-      email: user.email || '',
-      phone: '০১৭১১-১১১১১১',
-      address: 'ধানমন্ডি, ঢাকা',
-      district: 'ঢাকা',
-      favCrops: ['ধান', 'টমেটো', 'গম', 'আলু', 'পেঁয়াজ']
-    };
-    userData = defaultData;
-    updateUI(defaultData);
-    
-    // Firebase-এ সেভ
-    if (firebase.database) {
-      firebase.database().ref('users/' + user.uid).set(defaultData);
-    }
-  }
-
-  // ===== ৩. ডেমো ডাটা =====
-  function setDemoData() {
-    userData = {
-      name: 'জন কৃষক',
-      email: 'john@krishisahayata.com',
-      phone: '০১৭১১-১১১১১১',
-      address: 'ধানমন্ডি, ঢাকা',
-      district: 'ঢাকা',
-      favCrops: ['ধান', 'টমেটো', 'গম', 'আলু', 'পেঁয়াজ']
-    };
-    updateUI(userData);
-  }
-
-  // ===== ৪. UI আপডেট =====
-  function updateUI(data) {
-    userName.textContent = data.name || 'কৃষক';
-    userEmail.textContent = data.email || '';
-    displayName.textContent = data.name || 'কৃষক';
-    displayEmail.textContent = data.email || '';
-    displayPhone.textContent = data.phone || '০১৭১১-১১১১১১';
-    displayAddress.textContent = data.address || 'ধানমন্ডি, ঢাকা';
-    displayDistrict.textContent = data.district || 'ঢাকা';
-    
-    // ফেভারিট ফসল
-    if (data.favCrops && data.favCrops.length > 0) {
-      favCrops.innerHTML = data.favCrops.map(function(c) {
-        return '<span class="fav-item"><i class="fas fa-star"></i> ' + c + '</span>';
-      }).join('');
-    }
-  }
-
-  // ===== ৫. প্রোফাইল এডিট =====
-  editBtn.addEventListener('click', function() {
-    editName.value = userData.name || '';
-    editEmail.value = userData.email || '';
-    editPhone.value = userData.phone || '';
-    editAddress.value = userData.address || '';
-    editDistrict.value = userData.district || '';
-    editModal.classList.add('show');
-  });
-
-  closeModal.addEventListener('click', function() {
-    editModal.classList.remove('show');
-  });
-
-  editModal.addEventListener('click', function(e) {
-    if (e.target === this) {
-      editModal.classList.remove('show');
-    }
-  });
-
-  editForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    var updatedData = {
-      name: editName.value.trim(),
-      email: editEmail.value.trim(),
-      phone: editPhone.value.trim(),
-      address: editAddress.value.trim(),
-      district: editDistrict.value.trim(),
-      favCrops: userData.favCrops || ['ধান', 'টমেটো']
-    };
-    
-    userData = updatedData;
-    updateUI(updatedData);
-    
-    // Firebase-এ সেভ
-    if (currentUser && firebase.database) {
-      firebase.database().ref('users/' + currentUser.uid).update(updatedData)
-        .then(function() {
-          showToast('✅ প্রোফাইল আপডেট করা হয়েছে!', 'success');
-        })
-        .catch(function(e) {
-          showToast('❌ আপডেট করতে সমস্যা!', 'error');
-        });
-    } else {
-      showToast('✅ ডেমো: প্রোফাইল আপডেট করা হয়েছে!', 'success');
-    }
-    
-    editModal.classList.remove('show');
-  });
-
-  // ===== ৬. ফেভারিট যোগ =====
-  addFavBtn.addEventListener('click', function() {
-    var crop = prompt('ফসলের নাম লিখুন:');
-    if (crop && crop.trim()) {
-      var newCrop = crop.trim();
-      if (!userData.favCrops) userData.favCrops = [];
-      userData.favCrops.push(newCrop);
-      updateUI(userData);
-      
-      if (currentUser && firebase.database) {
-        firebase.database().ref('users/' + currentUser.uid + '/favCrops').set(userData.favCrops);
-      }
-      showToast('✅ ' + newCrop + ' ফেভারিটে যোগ করা হয়েছে!', 'success');
-    }
-  });
-
-  // ===== ৭. ডার্ক মোড টগল =====
-  darkToggleSwitch.addEventListener('click', function() {
-    this.classList.toggle('active');
-    var isDark = this.classList.contains('active');
-    document.body.classList.toggle('dark', isDark);
-    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
-    
-    // ডার্ক টগল বাটন আপডেট
-    var darkToggleBtn = document.getElementById('darkToggle');
-    if (darkToggleBtn) {
-      darkToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i> <span>লাইট</span>' : '<i class="fas fa-moon"></i> <span>ডার্ক</span>';
-    }
-  });
-
-  // ===== ৮. নোটিফিকেশন টগল =====
-  notifToggleSwitch.addEventListener('click', function() {
-    this.classList.toggle('active');
-    var isOn = this.classList.contains('active');
-    showToast(isOn ? '🔔 নোটিফিকেশন চালু' : '🔕 নোটিফিকেশন বন্ধ', 'success');
-  });
-
-  // ===== ৯. লগআউট =====
-  logoutBtn.addEventListener('click', function() {
-    if (confirm('আপনি কি লগআউট করতে চান?')) {
-      if (typeof firebase !== 'undefined' && firebase.auth) {
-        firebase.auth().signOut().then(function() {
-          window.location.href = 'login.html';
-        });
-      } else {
-        window.location.href = 'login.html';
-      }
-    }
-  });
-
-  // ===== ১০. ইনিশিয়াল =====
-  document.addEventListener('DOMContentLoaded', function() {
-    loadUserData();
-    console.log('👤 প্রোফাইল পেজ লোড হয়েছে!');
-  });
-
-})();
-</script>
+<script src="js/profile.js"></script>
 
 </body>
 </html>
