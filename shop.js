@@ -189,3 +189,9 @@
     console.log('📦 মোট পণ্য:', products.length);
 
 })();
+
+// কার্টে যোগ করলে
+function addToCart(product) {
+    // ... কার্ট লজিক
+    trackCartAction('যোগ করা হয়েছে', product.name);
+}

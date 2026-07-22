@@ -190,3 +190,10 @@
     });
 
 })();
+
+
+// অর্ডার সম্পন্ন হলে
+function placeOrder(orderId, total) {
+    // ... অর্ডার লজিক
+    trackOrder(orderId, total);
+}
