@@ -1,417 +1,397 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-  <title>লগইন - কৃষি সহায়তা</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  
-  <style>
-    .auth-container {
-      max-width: 420px;
-      margin: 60px auto;
-      background: var(--white);
-      padding: 40px 35px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-    }
-    .auth-container h2 {
-      text-align: center;
-      color: var(--primary);
-      margin-bottom: 8px;
-      font-size: 1.8rem;
-    }
-    .auth-container .subtitle {
-      text-align: center;
-      color: var(--text-light);
-      margin-bottom: 28px;
-      font-size: 0.95rem;
-    }
-    .auth-container .form-group {
-      margin-bottom: 18px;
-    }
-    .auth-container label {
-      display: block;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 5px;
-      font-size: 0.9rem;
-    }
-    .auth-container input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #d8e8d8;
-      border-radius: 12px;
-      font-size: 1rem;
-      outline: none;
-      transition: var(--transition);
-      background: var(--bg);
-      color: var(--text-dark);
-    }
-    .auth-container input:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 4px rgba(46,125,94,0.15);
-    }
-    .auth-container .btn-auth {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: var(--white);
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-      margin-top: 6px;
-    }
-    .auth-container .btn-auth:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 25px rgba(30,77,43,0.3);
-    }
-    .auth-container .btn-google {
-      width: 100%;
-      padding: 12px;
-      background: var(--white);
-      color: var(--text-dark);
-      border: 2px solid #d8e8d8;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .auth-container .btn-google:hover {
-      background: #f5f5f5;
-      border-color: var(--primary-light);
-    }
-    .auth-container .btn-google img {
-      width: 20px;
-      height: 20px;
-    }
-    .auth-container .divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 18px 0;
-      color: var(--gray);
-      font-size: 0.85rem;
-    }
-    .auth-container .divider hr {
-      flex: 1;
-      border: none;
-      border-top: 1px solid #d8e8d8;
-    }
-    .auth-container .toggle-link {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 0.95rem;
-      color: var(--text-light);
-    }
-    .auth-container .toggle-link a {
-      color: var(--primary);
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .auth-container .toggle-link a:hover {
-      text-decoration: underline;
-    }
-    .auth-container .error-msg {
-      background: #f8d7da;
-      color: #721c24;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      margin-bottom: 16px;
-      display: none;
-    }
-    .auth-container .error-msg.show {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+    <title>লগইন - কৃষি সহায়তা</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .auth-container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: var(--white);
+            padding: 40px 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+        }
+        .auth-container h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.8rem;
+        }
+        .auth-container .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 28px;
+            font-size: 0.95rem;
+        }
+        .auth-container .form-group {
+            margin-bottom: 18px;
+        }
+        .auth-container label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        .auth-container input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d8e8d8;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+            background: var(--bg);
+            color: var(--text-dark);
+        }
+        .auth-container input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(46,125,94,0.15);
+        }
+        .auth-container .btn-auth {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 6px;
+        }
+        .auth-container .btn-auth:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(30,77,43,0.3);
+        }
+        
+        .auth-container .btn-google {
+            width: 100%;
+            padding: 12px;
+            background: var(--white);
+            color: var(--text-dark);
+            border: 2px solid #d8e8d8;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .auth-container .btn-google:hover {
+            background: #f5f5f5;
+            border-color: var(--primary-light);
+        }
+        .auth-container .btn-google i {
+            color: #ea4335;
+            font-size: 1.2rem;
+        }
+        
+        .auth-container .btn-facebook {
+            width: 100%;
+            padding: 12px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .auth-container .btn-facebook:hover {
+            background: #1664d6;
+            transform: scale(1.02);
+        }
+        .auth-container .btn-facebook i {
+            font-size: 1.2rem;
+        }
+        
+        .auth-container .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 18px 0;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        .auth-container .divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid #d8e8d8;
+        }
+        .auth-container .toggle-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+        .auth-container .toggle-link a {
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .auth-container .toggle-link a:hover {
+            text-decoration: underline;
+        }
+        .auth-container .error-msg {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .auth-container .error-msg.show {
+            display: block;
+        }
+        
+        body.dark .auth-container { background: var(--white); }
+        body.dark .auth-container input { background: var(--white); border-color: var(--dark-border); color: var(--text-dark); }
+        body.dark .auth-container .btn-google { background: var(--white); border-color: var(--dark-border); color: var(--text-dark); }
+    </style>
 </head>
 <body>
 
-<!-- ===== HEADER (সরল) ===== -->
+<!-- ===== HEADER ===== -->
 <header>
-  <div class="container">
-    <div class="header-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-icon">🌾</span>
-        <h1>কৃষি<span>সহায়তা</span></h1>
-      </a>
+    <div class="container">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌾</span>
+                <h1>কৃষি<span>সহায়তা</span></h1>
+            </a>
+        </div>
     </div>
-  </div>
 </header>
 
 <!-- ===== AUTH CONTAINER ===== -->
 <div class="container">
-  <div class="auth-container">
-    <h2 id="formTitle">লগইন</h2>
-    <p class="subtitle" id="formSubtitle">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
+    <div class="auth-container">
+        <h2 id="formTitle">লগইন</h2>
+        <p class="subtitle" id="formSubtitle">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
 
-    <!-- ===== Error Message ===== -->
-    <div class="error-msg" id="errorMsg"></div>
+        <!-- ===== Error Message ===== -->
+        <div class="error-msg" id="errorMsg"></div>
 
-    <!-- ===== Form ===== -->
-    <form id="authForm">
-      <div class="form-group">
-        <label><i class="fas fa-envelope"></i> ইমেইল</label>
-        <input type="email" id="emailInput" placeholder="আপনার ইমেইল" required />
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
-        <input type="password" id="passwordInput" placeholder="পাসওয়ার্ড" required minlength="6" />
-      </div>
-      <button type="submit" class="btn-auth" id="submitBtn">লগইন করুন</button>
-    </form>
+        <!-- ===== Form ===== -->
+        <form id="authForm">
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> ইমেইল</label>
+                <input type="email" id="emailInput" placeholder="আপনার ইমেইল" required />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
+                <input type="password" id="passwordInput" placeholder="পাসওয়ার্ড" required minlength="6" />
+            </div>
+            <button type="submit" class="btn-auth" id="submitBtn">লগইন করুন</button>
+        </form>
 
-    <!-- ===== Divider ===== -->
-    <div class="divider">
-      <hr />
-      <span>অথবা</span>
-      <hr />
+        <!-- ===== Divider ===== -->
+        <div class="divider">
+            <hr />
+            <span>অথবা</span>
+            <hr />
+        </div>
+
+        <!-- ===== Social Login ===== -->
+        <button class="btn-google" id="googleBtn">
+            <i class="fab fa-google"></i> Google দিয়ে লগইন করুন
+        </button>
+        
+        <button class="btn-facebook" id="facebookBtn">
+            <i class="fab fa-facebook"></i> Facebook দিয়ে লগইন করুন
+        </button>
+
+        <!-- ===== Toggle Link ===== -->
+        <div class="toggle-link">
+            <span id="toggleText">নতুন ইউজার?</span>
+            <a id="toggleBtn">অ্যাকাউন্ট তৈরি করুন</a>
+        </div>
     </div>
-
-    <!-- ===== Google Login ===== -->
-    <button class="btn-google" id="googleBtn">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
-      Google দিয়ে লগইন করুন
-    </button>
-
-    <!-- ===== Toggle Link ===== -->
-    <div class="toggle-link">
-      <span id="toggleText">নতুন ইউজার?</span>
-      <a id="toggleBtn">অ্যাকাউন্ট তৈরি করুন</a>
-    </div>
-  </div>
 </div>
 
 <!-- ===== FOOTER ===== -->
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <h4>🌾 কৃষি সহায়তা(Agricultural Assistance) 🌾</h4>
-        <p style="color:#b3d9b3; font-size:0.95rem;">আধুনিক কৃষি, সুস্থ ফসল, নিশ্চিত সমৃদ্ধি (অভি)।</p>
-      </div>
-      <div>
-        <h4>দ্রুত লিংক</h4>
-        <ul>
-          <li><a href="crops.html">ফসলের তথ্য</a></li>
-          <li><a href="equipment.html">যন্ত্রপাতি</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>যোগাযোগ</h4>
-        <ul>
-          <li><i class="fas fa-phone"></i> ১৬৩৩৩</li>
-          <li><i class="fas fa-envelope"></i> info@krishisahayata.com</li>
-        </ul>
-      </div>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h4>🌾 কৃষি সহায়তা</h4>
+                <p style="color:#b3d9b3; font-size:0.95rem;">কৃষকের বন্ধু, উন্নতির ঠিকানা।</p>
+            </div>
+            <div>
+                <h4>দ্রুত লিংক</h4>
+                <ul>
+                    <li><a href="crops.html">ফসলের তথ্য</a></li>
+                    <li><a href="equipment.html">যন্ত্রপাতি</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>যোগাযোগ</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> ১৬৩৩৩</li>
+                    <li><i class="fas fa-envelope"></i> info@krishisahayata.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম</p>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম</p>
-    </div>
-  </div>
 </footer>
 
 <!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="js/firebase-config.js"></script>
-<script>
-  (function() {
-    const loginNavBtn = document.getElementById('loginNavBtn');
-    const logoutNavBtn = document.getElementById('logoutNavBtn');
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        if (loginNavBtn) loginNavBtn.style.display = 'none';
-        if (logoutNavBtn) logoutNavBtn.style.display = 'inline-flex';
-      } else {
-        if (loginNavBtn) loginNavBtn.style.display = 'inline-flex';
-        if (logoutNavBtn) logoutNavBtn.style.display = 'none';
-      }
-    });
-
-    if (logoutNavBtn) {
-
-    logoutNavBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      firebase.auth().signOut().then(function() {
-        window.location.href = 'login.html';
-      });
-    });
-  }
-  })();
-</script>
-
-<!-- ===== SERVICE WORKER ===== -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js')
-        .then(function(registration) {
-          console.log('✅ Service Worker রেজিস্টার হয়েছে:', registration);
-        })
-        .catch(function(error) {
-          console.log('❌ Service Worker রেজিস্টার হয়নি:', error);
-        });
-    });
-  } else {
-    console.log('ℹ️ এই ব্রাউজার Service Worker সাপোর্ট করে না।');
-  }
-</script>
-
-<!-- ==========================================
+<!-- ============================================================
      JAVASCRIPT
-     ========================================== -->
-
-<!-- ===== Firebase Auth ===== -->
+     ============================================================ -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
-<!-- ===== Firebase Config ===== -->
+<script src="js/dark-mode.js"></script>
+<script src="js/toast.js"></script>
 <script src="js/firebase-config.js"></script>
 
-<!-- ===== Auth Logic ===== -->
 <script>
-  (function() {
+(function() {
     'use strict';
 
-    // ===== DOM Elements =====
-    const formTitle = document.getElementById('formTitle');
-    const formSubtitle = document.getElementById('formSubtitle');
-    const submitBtn = document.getElementById('submitBtn');
-    const toggleBtn = document.getElementById('toggleBtn');
-    const toggleText = document.getElementById('toggleText');
-    const emailInput = document.getElementById('emailInput');
-    const passwordInput = document.getElementById('passwordInput');
-    const authForm = document.getElementById('authForm');
-    const errorMsg = document.getElementById('errorMsg');
-    const googleBtn = document.getElementById('googleBtn');
-    const toast = document.getElementById('toast');
+    var formTitle = document.getElementById('formTitle');
+    var formSubtitle = document.getElementById('formSubtitle');
+    var submitBtn = document.getElementById('submitBtn');
+    var toggleBtn = document.getElementById('toggleBtn');
+    var toggleText = document.getElementById('toggleText');
+    var emailInput = document.getElementById('emailInput');
+    var passwordInput = document.getElementById('passwordInput');
+    var authForm = document.getElementById('authForm');
+    var errorMsg = document.getElementById('errorMsg');
+    var googleBtn = document.getElementById('googleBtn');
+    var facebookBtn = document.getElementById('facebookBtn');
 
-    let isLogin = true;
+    var isLogin = true;
 
-    // ===== Toast =====
     function showToast(msg, type) {
-      if (!toast) return;
-      toast.textContent = msg;
-      toast.className = 'toast show ' + (type || 'success');
-      setTimeout(function() {
-        toast.classList.remove('show');
-      }, 3500);
+        var toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.className = 'toast show ' + (type || 'success');
+        setTimeout(function() { toast.classList.remove('show'); }, 3500);
     }
 
-    // ===== Show Error =====
     function showError(msg) {
-      errorMsg.textContent = msg;
-      errorMsg.classList.add('show');
-      setTimeout(function() {
-        errorMsg.classList.remove('show');
-      }, 5000);
+        errorMsg.textContent = msg;
+        errorMsg.classList.add('show');
+        setTimeout(function() { errorMsg.classList.remove('show'); }, 5000);
     }
 
-    // ===== Toggle Form =====
+    // ===== Toggle =====
     toggleBtn.addEventListener('click', function() {
-      isLogin = !isLogin;
-      if (isLogin) {
-        formTitle.textContent = 'লগইন';
-        formSubtitle.textContent = 'আপনার অ্যাকাউন্টে প্রবেশ করুন';
-        submitBtn.textContent = 'লগইন করুন';
-        toggleText.textContent = 'নতুন ইউজার?';
-        toggleBtn.textContent = 'অ্যাকাউন্ট তৈরি করুন';
-      } else {
-        formTitle.textContent = 'রেজিস্টার';
-        formSubtitle.textContent = 'নতুন অ্যাকাউন্ট তৈরি করুন';
-        submitBtn.textContent = 'অ্যাকাউন্ট তৈরি করুন';
-        toggleText.textContent = 'ইতিমধ্যে অ্যাকাউন্ট আছে?';
-        toggleBtn.textContent = 'লগইন করুন';
-      }
-    });
-
-    // ===== Form Submit =====
-    authForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-
-      if (!email || !password) {
-        showError('দয়া করে ইমেইল ও পাসওয়ার্ড দিন!');
-        return;
-      }
-      if (password.length < 6) {
-        showError('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!');
-        return;
-      }
-
-      if (isLogin) {
-        // ===== Login =====
-        firebase.auth().signInWithEmailAndPassword(email, password)
-          .then(function(userCredential) {
-            showToast('✅ লগইন সফল! স্বাগতম!', 'success');
-            setTimeout(function() {
-              window.location.href = 'index.html';
-            }, 1500);
-          })
-          .catch(function(error) {
-            showError(error.message);
-          });
-      } else {
-        // ===== Sign Up =====
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(function(userCredential) {
-            showToast('✅ অ্যাকাউন্ট তৈরি সফল!', 'success');
-            setTimeout(function() {
-              window.location.href = 'index.html';
-            }, 1500);
-          })
-          .catch(function(error) {
-            showError(error.message);
-          });
-      }
-    });
-
-    // ===== Google Login =====
-    googleBtn.addEventListener('click', function() {
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider)
-        .then(function(result) {
-          showToast('✅ Google লগইন সফল!', 'success');
-          setTimeout(function() {
-            window.location.href = 'index.html';
-          }, 1500);
-        })
-        .catch(function(error) {
-          showError(error.message);
-        });
-    });
-
-    // ===== Auth State Check =====
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // ইতিমধ্যে লগইন করা থাকলে হোমপেজে পাঠাও
-        if (window.location.pathname.includes('login.html')) {
-          window.location.href = 'index.html';
+        isLogin = !isLogin;
+        if (isLogin) {
+            formTitle.textContent = 'লগইন';
+            formSubtitle.textContent = 'আপনার অ্যাকাউন্টে প্রবেশ করুন';
+            submitBtn.textContent = 'লগইন করুন';
+            toggleText.textContent = 'নতুন ইউজার?';
+            toggleBtn.textContent = 'অ্যাকাউন্ট তৈরি করুন';
+        } else {
+            formTitle.textContent = 'রেজিস্টার';
+            formSubtitle.textContent = 'নতুন অ্যাকাউন্ট তৈরি করুন';
+            submitBtn.textContent = 'অ্যাকাউন্ট তৈরি করুন';
+            toggleText.textContent = 'ইতিমধ্যে অ্যাকাউন্ট আছে?';
+            toggleBtn.textContent = 'লগইন করুন';
         }
-      }
     });
 
-    console.log('✅ Authentication সিস্টেম রেডি!');
-  })();
+    // ===== Email/Password =====
+    authForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var email = emailInput.value.trim();
+        var password = passwordInput.value;
+
+        if (!email || !password) {
+            showError('দয়া করে ইমেইল ও পাসওয়ার্ড দিন!');
+            return;
+        }
+        if (password.length < 6) {
+            showError('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!');
+            return;
+        }
+
+        if (isLogin) {
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(function() {
+                    showToast('✅ লগইন সফল!', 'success');
+                    setTimeout(function() { window.location.href = 'index.html'; }, 1500);
+                })
+                .catch(function(error) {
+                    showError(error.message);
+                });
+        } else {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(function() {
+                    showToast('✅ অ্যাকাউন্ট তৈরি সফল!', 'success');
+                    setTimeout(function() { window.location.href = 'index.html'; }, 1500);
+                })
+                .catch(function(error) {
+                    showError(error.message);
+                });
+        }
+    });
+
+    // ===== Google =====
+    googleBtn.addEventListener('click', function() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+            .then(function(result) {
+                showToast('✅ Google লগইন সফল!', 'success');
+                setTimeout(function() { window.location.href = 'index.html'; }, 1500);
+            })
+            .catch(function(error) {
+                showError(error.message);
+            });
+    });
+
+    // ===== Facebook =====
+    facebookBtn.addEventListener('click', function() {
+        var provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+            .then(function(result) {
+                showToast('✅ Facebook লগইন সফল!', 'success');
+                setTimeout(function() { window.location.href = 'index.html'; }, 1500);
+            })
+            .catch(function(error) {
+                showError(error.message);
+            });
+    });
+
+    // ===== Auth State =====
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user && window.location.pathname.includes('login.html')) {
+            window.location.href = 'index.html';
+        }
+    });
+
+})();
 </script>
 
 </body>
