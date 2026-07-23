@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+    <title>ব্যাকআপ - অ্যাডমিন প্যানেল</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .backup-container {
+            max-width: 900px;
+            margin: 30px auto;
+        }
+        .backup-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .backup-card .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .backup-card .btn-backup {
+            padding: 12px 28px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .backup-card .btn-backup:hover {
+            background: var(--primary-dark);
+            transform: scale(1.04);
+        }
+        .backup-card .btn-restore {
+            padding: 12px 28px;
+            background: var(--secondary);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .backup-card .btn-restore:hover {
+            background: var(--secondary-light);
+            transform: scale(1.04);
+        }
+        .backup-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .backup-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary-light);
+        }
+        .backup-item .info .name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .backup-item .info .date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        .backup-item .actions {
+            display: flex;
+            gap: 8px;
+        }
+        .backup-item .actions button {
+            padding: 4px 14px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .backup-item .actions .btn-download {
+            background: #d4edda;
+            color: #155724;
+        }
+        .backup-item .actions .btn-download:hover {
+            background: #b7dfb9;
+        }
+        .backup-item .actions .btn-delete {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .backup-item .actions .btn-delete:hover {
+            background: #f5c6cb;
+        }
+        .no-backup {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+        .no-backup i {
+            font-size: 3rem;
+            color: #ccc;
+            display: block;
+            margin-bottom: 10px;
+        }
+        body.dark .backup-card { background: var(--white); }
+        body.dark .backup-item { background: var(--white); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="header-inner">
+            <a href="index.html" class="logo"><span class="logo-icon">🌾</span><h1>কৃষি<span>সহায়তা</span></h1></a>
+            <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i> <span>ডার্ক</span></button>
+        </div>
+    </div>
+</header>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html"><i class="fas fa-home"></i> হোম</a>
+      <a href="crops.html"><i class="fas fa-seedling"></i> ফসল</a>
+      <a href="bazardor.html"><i class="fas fa-tags"></i> বাজারদর</a>
+      <a href="equipment.html"><i class="fas fa-tractor"></i> যন্ত্রপাতি</a>
+      <a href="rental.html"><i class="fas fa-hand-holding-usd"></i> ভাড়া</a>
+      <a href="order.html"><i class="fas fa-clipboard-list"></i> অর্ডার</a>
+      <a href="calendar.html"><i class="fas fa-calendar-alt"></i> ক্যালেন্ডার</a>
+      <a href="disease-detection.html"><i class="fas fa-microscope"></i> রোগ শনাক্ত</a>    <!-- নতুন -->
+      <a href="chatbot.html"><i class="fas fa-robot"></i> চ্যাটবট</a>                   <!-- নতুন -->
+      <a href="forum.html"><i class="fas fa-users"></i> ফোরাম</a> 
+      <a href="shop.html"><i class="fas fa-store"></i> বাজার</a>                      <!-- নতুন -->
+      <a href="about.html" class="active"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
+      <a href="contact.html"><i class="fas fa-phone-alt"></i> যোগাযোগ</a>
+      <a href="chat.html"><i class="fas fa-comments"></i> চ্যাট</a>
+      <a href="cart.html"><i class="fas fa-comments"></i> কার্ট</a>
+      <a href="admin.html"><i class="fas fa-user-shield"></i> অ্যাডমিন</a>
+      <a href="admin-backup.html"><i class="fas fa-database"></i> ব্যাকআপ</a>
+      <a href="profile.html"><i class="fas fa-user"></i> প্রোফাইল</a>
+      <a href="login.html"><i class="fas fa-sign-in-alt"></i> লগইন</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+    <div class="container">
+        <div class="backup-container">
+            <h2 class="section-title"><i class="fas fa-database"></i> ডাটাবেস ব্যাকআপ</h2>
+            
+            <!-- ===== Backup Now ===== -->
+            <div class="backup-card">
+                <div class="card-title"><i class="fas fa-download"></i> ম্যানুয়াল ব্যাকআপ</div>
+                <p style="color:var(--text-light); margin-bottom:12px;">সম্পূর্ণ ডাটাবেসের একটি ব্যাকআপ নিন।</p>
+                <button class="btn-backup" id="backupNow"><i class="fas fa-download"></i> এখন ব্যাকআপ নিন</button>
+            </div>
+            
+            <!-- ===== Auto Backup ===== -->
+            <div class="backup-card">
+                <div class="card-title"><i class="fas fa-clock"></i> অটো ব্যাকআপ সেটিংস</div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                    <select id="autoBackupInterval" style="padding:10px 16px; border:2px solid #d8e8d8; border-radius:10px; background:var(--bg); color:var(--text-dark);">
+                        <option value="disabled">বন্ধ</option>
+                        <option value="daily">প্রতিদিন</option>
+                        <option value="weekly">সাপ্তাহিক</option>
+                        <option value="monthly">মাসিক</option>
+                    </select>
+                    <button class="btn-backup" id="saveAutoBackup"><i class="fas fa-save"></i> সেভ করুন</button>
+                </div>
+            </div>
+            
+            <!-- ===== Backup List ===== -->
+            <div class="backup-card">
+                <div class="card-title"><i class="fas fa-list"></i> ব্যাকআপ তালিকা</div>
+                <div id="backupList">
+                    <!-- JavaScript দিয়ে লোড হবে -->
+                </div>
+            </div>
+            
+            <!-- ===== Restore ===== -->
+            <div class="backup-card">
+                <div class="card-title"><i class="fas fa-upload"></i> ব্যাকআপ রিস্টোর</div>
+                <p style="color:var(--text-light); margin-bottom:12px;">একটি JSON ফাইল আপলোড করে ডাটাবেস রিস্টোর করুন।</p>
+                <input type="file" id="restoreFile" accept=".json" style="margin-bottom:12px;" />
+                <button class="btn-restore" id="restoreBtn"><i class="fas fa-upload"></i> রিস্টোর করুন</button>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>🌾 কৃষি সহায়তা</h4></div>
+            <div><h4>দ্রুত লিংক</h4><ul><li><a href="admin.html">অ্যাডমিন</a></li></ul></div>
+            <div><h4>যোগাযোগ</h4><ul><li><i class="fas fa-phone"></i> ১৬৩৩৩</li></ul></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম</p></div>
+    </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="js/dark-mode.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/admin-backup.js"></script>
+
+</body>
+</html>
