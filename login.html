@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
     <title>লগইন - কৃষি সহায়তা</title>
+    
+    <!-- ===== ফন্ট ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ===== আইকন ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- ===== CSS ===== -->
     <link rel="stylesheet" href="css/style.css">
     
     <style>
+        /* ===== লগইন পেজ স্টাইল ===== */
         .auth-container {
             max-width: 420px;
             margin: 60px auto;
@@ -180,55 +187,88 @@
                 <span class="logo-icon">🌾</span>
                 <h1>কৃষি<span>সহায়তা</span></h1>
             </a>
+            <div class="header-actions">
+                <button class="dark-toggle" id="darkToggle">
+                    <i class="fas fa-moon"></i> <span>ডার্ক</span>
+                </button>
+            </div>
         </div>
     </div>
 </header>
 
-<!-- ===== AUTH CONTAINER ===== -->
-<div class="container">
-    <div class="auth-container">
-        <h2 id="formTitle">লগইন</h2>
-        <p class="subtitle" id="formSubtitle">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
-
-        <!-- ===== Error Message ===== -->
-        <div class="error-msg" id="errorMsg"></div>
-
-        <!-- ===== Form ===== -->
-        <form id="authForm">
-            <div class="form-group">
-                <label><i class="fas fa-envelope"></i> ইমেইল</label>
-                <input type="email" id="emailInput" placeholder="আপনার ইমেইল" required />
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
-                <input type="password" id="passwordInput" placeholder="পাসওয়ার্ড" required minlength="6" />
-            </div>
-            <button type="submit" class="btn-auth" id="submitBtn">লগইন করুন</button>
-        </form>
-
-        <!-- ===== Divider ===== -->
-        <div class="divider">
-            <hr />
-            <span>অথবা</span>
-            <hr />
-        </div>
-
-        <!-- ===== Social Login ===== -->
-        <button class="btn-google" id="googleBtn">
-            <i class="fab fa-google"></i> Google দিয়ে লগইন করুন
-        </button>
-        
-        <button class="btn-facebook" id="facebookBtn">
-            <i class="fab fa-facebook"></i> Facebook দিয়ে লগইন করুন
-        </button>
-
-        <!-- ===== Toggle Link ===== -->
-        <div class="toggle-link">
-            <span id="toggleText">নতুন ইউজার?</span>
-            <a id="toggleBtn">অ্যাকাউন্ট তৈরি করুন</a>
+<!-- ===== NAVIGATION ===== -->
+<nav>
+    <div class="container">
+        <div class="nav-inner">
+            <a href="index.html"><i class="fas fa-home"></i> হোম</a>
+            <a href="crops.html"><i class="fas fa-seedling"></i> ফসল</a>
+            <a href="bazardor.html"><i class="fas fa-tags"></i> বাজারদর</a>
+            <a href="equipment.html"><i class="fas fa-tractor"></i> যন্ত্রপাতি</a>
+            <a href="rental.html"><i class="fas fa-hand-holding-usd"></i> ভাড়া</a>
+            <a href="shop.html"><i class="fas fa-store"></i> বাজার</a>
+            <a href="order.html"><i class="fas fa-clipboard-list"></i> অর্ডার</a>
+            <a href="calendar.html"><i class="fas fa-calendar-alt"></i> ক্যালেন্ডার</a>
+            <a href="disease-detection.html"><i class="fas fa-microscope"></i> রোগ শনাক্ত</a>
+            <a href="chatbot.html"><i class="fas fa-robot"></i> চ্যাটবট</a>
+            <a href="forum.html"><i class="fas fa-users"></i> ফোরাম</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
+            <a href="contact.html"><i class="fas fa-phone-alt"></i> যোগাযোগ</a>
+            <a href="chat.html"><i class="fas fa-comments"></i> চ্যাট</a>
+            <a href="profile.html"><i class="fas fa-user"></i> প্রোফাইল</a>
+            <a href="login.html" class="active"><i class="fas fa-sign-in-alt"></i> লগইন</a>
+            <a href="admin.html"><i class="fas fa-user-shield"></i> অ্যাডমিন</a>
         </div>
     </div>
-</div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main>
+    <div class="container">
+        <div class="auth-container">
+            <h2 id="formTitle">লগইন</h2>
+            <p class="subtitle" id="formSubtitle">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
+
+            <!-- ===== Error Message ===== -->
+            <div class="error-msg" id="errorMsg"></div>
+
+            <!-- ===== Email/Password Form ===== -->
+            <form id="authForm">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> ইমেইল</label>
+                    <input type="email" id="emailInput" placeholder="আপনার ইমেইল" required />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
+                    <input type="password" id="passwordInput" placeholder="পাসওয়ার্ড" required minlength="6" />
+                </div>
+                <button type="submit" class="btn-auth" id="submitBtn">লগইন করুন</button>
+            </form>
+
+            <!-- ===== Divider ===== -->
+            <div class="divider">
+                <hr />
+                <span>অথবা</span>
+                <hr />
+            </div>
+
+            <!-- ===== Google Login ===== -->
+            <button class="btn-google" id="googleBtn">
+                <i class="fab fa-google"></i> Google দিয়ে লগইন করুন
+            </button>
+            
+            <!-- ===== Facebook Login ===== -->
+            <button class="btn-facebook" id="facebookBtn">
+                <i class="fab fa-facebook"></i> Facebook দিয়ে লগইন করুন
+            </button>
+
+            <!-- ===== Toggle Link ===== -->
+            <div class="toggle-link">
+                <span id="toggleText">নতুন ইউজার?</span>
+                <a id="toggleBtn">অ্যাকাউন্ট তৈরি করুন</a>
+            </div>
+        </div>
+    </div>
+</main>
 
 <!-- ===== FOOTER ===== -->
 <footer>
@@ -237,12 +277,25 @@
             <div>
                 <h4>🌾 কৃষি সহায়তা</h4>
                 <p style="color:#b3d9b3; font-size:0.95rem;">কৃষকের বন্ধু, উন্নতির ঠিকানা।</p>
+                <div class="social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
             <div>
                 <h4>দ্রুত লিংক</h4>
                 <ul>
                     <li><a href="crops.html">ফসলের তথ্য</a></li>
-                    <li><a href="equipment.html">যন্ত্রপাতি</a></li>
+                    <li><a href="shop.html">কৃষি বাজার</a></li>
+                    <li><a href="rental.html">ভাড়া ক্যালকুলেটর</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>সহায়তা</h4>
+                <ul>
+                    <li><a href="contact.html">যোগাযোগ</a></li>
+                    <li><a href="#">FAQ</a></li>
                 </ul>
             </div>
             <div>
@@ -250,11 +303,15 @@
                 <ul>
                     <li><i class="fas fa-phone"></i> ১৬৩৩৩</li>
                     <li><i class="fas fa-envelope"></i> info@krishisahayata.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম</p>
+            <p>&copy; ২০২৬ কৃষি সহায়তা প্ল্যাটফর্ম | সব অধিকার সংরক্ষিত</p>
+            <p style="opacity:0.6; font-size:0.85rem; margin-top:4px;">
+                <i class="fas fa-code"></i> প্রযুক্তি সহায়তায় কৃষির উন্নয়ন
+            </p>
         </div>
     </div>
 </footer>
@@ -265,16 +322,26 @@
 <!-- ============================================================
      JAVASCRIPT
      ============================================================ -->
+
+<!-- ===== Firebase SDK ===== -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="js/dark-mode.js"></script>
-<script src="js/toast.js"></script>
+
+<!-- ===== Firebase Config ===== -->
 <script src="js/firebase-config.js"></script>
 
+<!-- ===== Dark Mode ===== -->
+<script src="js/dark-mode.js"></script>
+
+<!-- ===== Toast ===== -->
+<script src="js/toast.js"></script>
+
+<!-- ===== Login Logic ===== -->
 <script>
 (function() {
     'use strict';
 
+    // ===== DOM Elements =====
     var formTitle = document.getElementById('formTitle');
     var formSubtitle = document.getElementById('formSubtitle');
     var submitBtn = document.getElementById('submitBtn');
@@ -289,6 +356,7 @@
 
     var isLogin = true;
 
+    // ===== Show Toast =====
     function showToast(msg, type) {
         var toast = document.getElementById('toast');
         if (!toast) return;
@@ -297,13 +365,14 @@
         setTimeout(function() { toast.classList.remove('show'); }, 3500);
     }
 
+    // ===== Show Error =====
     function showError(msg) {
         errorMsg.textContent = msg;
         errorMsg.classList.add('show');
         setTimeout(function() { errorMsg.classList.remove('show'); }, 5000);
     }
 
-    // ===== Toggle =====
+    // ===== Toggle Login/Signup =====
     toggleBtn.addEventListener('click', function() {
         isLogin = !isLogin;
         if (isLogin) {
@@ -321,7 +390,7 @@
         }
     });
 
-    // ===== Email/Password =====
+    // ===== Email/Password Login =====
     authForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -340,7 +409,7 @@
         if (isLogin) {
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(function() {
-                    showToast('✅ লগইন সফল!', 'success');
+                    showToast('✅ লগইন সফল! স্বাগতম!', 'success');
                     setTimeout(function() { window.location.href = 'index.html'; }, 1500);
                 })
                 .catch(function(error) {
@@ -358,7 +427,7 @@
         }
     });
 
-    // ===== Google =====
+    // ===== Google Login =====
     googleBtn.addEventListener('click', function() {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
@@ -371,7 +440,7 @@
             });
     });
 
-    // ===== Facebook =====
+    // ===== Facebook Login =====
     facebookBtn.addEventListener('click', function() {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider)
@@ -384,12 +453,15 @@
             });
     });
 
-    // ===== Auth State =====
+    // ===== Auth State Check =====
     firebase.auth().onAuthStateChanged(function(user) {
         if (user && window.location.pathname.includes('login.html')) {
             window.location.href = 'index.html';
         }
     });
+
+    console.log('✅ লগইন পেজ লোড হয়েছে!');
+    console.log('🔐 Google + Facebook Login রেডি!');
 
 })();
 </script>
